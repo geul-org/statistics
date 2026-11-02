@@ -1,4 +1,4 @@
-module github.com/geul-org/geulstatic
+module github.com/geul-org/statistics
 
 go 1.25
 

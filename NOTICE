@@ -1,4 +1,4 @@
-geulstatic — Notice
+statistics — Notice
 ===================
 
 Scope of CC0
@@ -12,7 +12,7 @@ CC0 covers only our own work. Third-party material keeps its own license and is
 not covered by CC0: the Go modules listed below.
 
 --------------------------------------------------------------------------------
-Go (module: github.com/geul-org/geulstatic)
+Go (module: github.com/geul-org/statistics)
 --------------------------------------------------------------------------------
 * github.com/geul-org/gogeul  (packages pkg/pack, pkg/core, pkg/inspect,
   pkg/codecspec, pkg/resolve)

@@ -24,10 +24,10 @@ func Run(ctx context.Context, paths []string, o Options, out, notice io.Writer) 
 		return err
 	}
 	if r.Unopened > 0 {
-		fmt.Fprintf(notice, "geulstatic: %d payloads have no usable codec spec: their TAGs are counted, not what they embed\n", r.Unopened)
+		fmt.Fprintf(notice, "statistics: %d payloads have no usable codec spec: their TAGs are counted, not what they embed\n", r.Unopened)
 	}
 	if r.HashOnly > 0 {
-		fmt.Fprintf(notice, "geulstatic: %d h/-only records are not counted\n", r.HashOnly)
+		fmt.Fprintf(notice, "statistics: %d h/-only records are not counted\n", r.HashOnly)
 	}
 	return writeTSV(out, r)
 }

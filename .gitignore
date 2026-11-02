@@ -1,6 +1,6 @@
 # Build output
-/geulstatic
-/cmd/geulstatic/geulstatic
+/statistics
+/cmd/statistics/statistics
 
 # Test and verification state (tsma)
 .tsma/

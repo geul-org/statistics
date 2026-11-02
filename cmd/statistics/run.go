@@ -10,7 +10,7 @@ import (
 	"runtime"
 	"runtime/debug"
 
-	"github.com/geul-org/geulstatic/pkg/tally"
+	"github.com/geul-org/statistics/pkg/tally"
 )
 
 // run sets the memory limit the caller chose for the whole process and counts
@@ -20,7 +20,7 @@ import (
 // are read one at a time, so one is enough; tally.CountSet raises GOMAXPROCS
 // for the documents. It returns 2 for a usage error and 1 when counting fails.
 func run(args []string, stdout, stderr io.Writer) int {
-	fs := flag.NewFlagSet("geulstatic", flag.ContinueOnError)
+	fs := flag.NewFlagSet("statistics", flag.ContinueOnError)
 	fs.SetOutput(stderr)
 	memory := fs.Int64("memory", 0, "memory limit in bytes, half of it for path tracking; 0 for no limit")
 	threads := fs.Int("threads", runtime.NumCPU(), "threads to use")
@@ -28,7 +28,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 		return 2
 	}
 	if fs.NArg() == 0 || *memory < 0 || *threads < 1 {
-		fmt.Fprintln(stderr, "usage: geulstatic [-memory bytes] [-threads n] archive...")
+		fmt.Fprintln(stderr, "usage: statistics [-memory bytes] [-threads n] archive...")
 		return 2
 	}
 	runtime.GOMAXPROCS(1)
@@ -37,7 +37,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 	}
 	err := tally.Run(context.Background(), fs.Args(), tally.Options{Memory: *memory, Threads: *threads}, stdout, stderr)
 	if err != nil {
-		fmt.Fprintln(stderr, "geulstatic:", err)
+		fmt.Fprintln(stderr, "statistics:", err)
 		return 1
 	}
 	return 0

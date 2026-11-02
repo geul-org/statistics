@@ -1,5 +1,5 @@
 //ff:func feature=cli type=command control=sequence
-//ff:what main — geulstatic 명령 진입점
+//ff:what main — statistics 명령 진입점
 package main
 
 import "os"

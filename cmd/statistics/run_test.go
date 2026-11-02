@@ -26,7 +26,7 @@ func TestRun(t *testing.T) {
 			t.Fatalf("%v: %d", args, got)
 		}
 	}
-	if got := run([]string{t.TempDir()}, &out, &errs); got != 1 || !strings.Contains(errs.String(), "geulstatic: ") {
+	if got := run([]string{t.TempDir()}, &out, &errs); got != 1 || !strings.Contains(errs.String(), "statistics: ") {
 		t.Fatalf("%d %s", got, errs.String())
 	}
 	root := t.TempDir()

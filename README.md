@@ -1,11 +1,11 @@
-# geulstatic
+# statistics
 
 pack 아카이브의 GEUL TAG 사용량을 Issuer별로 센다. TAG WORD `000K KLLL LCCC CCCC`에서 Length(LLLL)를 빼고, Reference는 Kind + `CCCC`(4비트), Value·Edge·Meta는 Kind + `CCCCCCC`(7비트)로 묶는다.
 
 ## 사용법
 
 ```bash
-go run ./cmd/geulstatic [-memory 바이트] [-threads n] 아카이브...
+go run ./cmd/statistics [-memory 바이트] [-threads n] 아카이브...
 ```
 
 - 아카이브는 `.well-known/geul/` 폴더이거나 pack set 폴더 하나(`.../0x0000`)다. 여러 개를 주면 합친다. 같은 문서를 두 번 주면 두 번 센다.
@@ -14,7 +14,7 @@ go run ./cmd/geulstatic [-memory 바이트] [-threads n] 아카이브...
 - `-threads`는 스레드 수다(`GOMAXPROCS`). 기본값은 전체 코어다.
 
 ```bash
-geulstatic -memory 1800000000 -threads 19 \
+statistics -memory 1800000000 -threads 19 \
   draft/geul-org/artifacts/geul/.well-known/geul/0x0000 \
   files/wikidata/full-20261019/.well-known/geul
 ```
