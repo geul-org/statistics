@@ -1,0 +1,41 @@
+geulstatic — Notice
+===================
+
+Scope of CC0
+------------
+The GEUL project's own work in this repository — code, documentation, data and
+other material we created — is dedicated to the public domain under CC0 1.0
+Universal. LICENSE holds the CC0 1.0 legal text verbatim (unmodified, so that
+it is recognised as CC0-1.0); this section states what it covers.
+
+CC0 covers only our own work. Third-party material keeps its own license and is
+not covered by CC0: the Go modules listed below.
+
+--------------------------------------------------------------------------------
+Go (module: github.com/geul-org/geulstatic)
+--------------------------------------------------------------------------------
+* github.com/geul-org/gogeul  (packages pkg/pack, pkg/core, pkg/inspect,
+  pkg/codecspec, pkg/resolve)
+    License:     CC0 1.0 Universal
+    URL:         https://github.com/geul-org/gogeul
+
+Compiled in through gogeul/pkg/pack:
+
+* github.com/klauspost/compress  v1.20.3  (packages zstd, zstd/internal/xxhash,
+  fse, huff0, internal/snapref, internal/cpuinfo, internal/le, internal/regmask)
+    License:     BSD-3-Clause
+    Copyright:   Copyright (c) 2012 The Go Authors. All rights reserved.
+                 Copyright (c) 2019 Klaus Post. All rights reserved.
+    URL:         https://github.com/klauspost/compress
+  zstd/internal/xxhash:
+    License:     MIT
+    Copyright:   Copyright (c) 2016 Caleb Spare
+    URL:         https://github.com/cespare/xxhash
+  internal/snapref:
+    License:     BSD-3-Clause
+    Copyright:   Copyright (c) 2011 The Snappy-Go Authors. All rights reserved.
+  The module's LICENSE file holds the full texts.
+
+Binaries also contain the Go standard library (BSD-3-Clause,
+Copyright (c) 2009 The Go Authors), including the golang.org/x packages it
+vendors.

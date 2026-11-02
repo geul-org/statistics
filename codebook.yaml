@@ -1,0 +1,19 @@
+required:
+  feature:
+    count: "TAG 세기 — 문서 하나의 레코드와 내장 레코드를 Kind·Codec 칸으로 센다"
+    live: "경로 추적 — 인벤토리만 읽어 뒤 항목에 덮인 항목을 찾는다(해시 표, 칸 나누기, 죽은 항목 비트)"
+    archive: "아카이브 — 경로로 pack set을 열고, 규격을 주소로 찾고, set별로 pack을 돌린다"
+    report: "집계 표 — Issuer별 합치기와 TSV 출력"
+    cli: "명령줄 도구 — 인자 해석과 입출력만(로직은 pkg)"
+  type:
+    model: "data type definition"
+    counter: "레코드를 세어 표를 채운다"
+    tracker: "경로 추적 표를 만들고 읽는다"
+    resolver: "아카이브·규격 찾기"
+    writer: "표를 출력으로 쓴다"
+    helper: "internal utility function"
+    command: "명령 엔트리포인트"
+
+optional:
+  level:
+    error: "error-path handling"
