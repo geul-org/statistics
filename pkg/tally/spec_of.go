@@ -1,5 +1,5 @@
 //ff:func feature=archive type=resolver control=iteration dimension=1
-//ff:what specOf — 주어진 아카이브의 0x0000에서 규격 문서를 주소로 찾아 모은다, 아카이브를 나열하지 않는다
+//ff:what specOf — 주어진 아카이브의 0x00000000/codecs/에서 코덱 문서를 주소로 찾아 모은다, 아카이브를 나열하지 않는다
 package tally
 
 import (
@@ -11,7 +11,7 @@ import (
 )
 
 // errNoSpec means no archive given holds the codec spec documents.
-var errNoSpec = errors.New("no codec spec documents under 0x0000: also give the archive or set that holds them")
+var errNoSpec = errors.New("no codec spec documents under 0x00000000: also give the archive or set that holds them")
 
 // specOf reads the specs by address (resolve.Dir.CodecSpecs): resolve.Dir.CodecSpec
 // lists the Issuer through Archive.ReadDir, which loads every path of every set

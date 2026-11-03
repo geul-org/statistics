@@ -22,7 +22,7 @@ func TestSendDoc(t *testing.T) {
 	}{
 		{live, true},
 		{pack.InventoryEntry{Path: "a.geul", Deleted: true}, false},
-		{pack.InventoryEntry{Path: "h/0xab.geul", Deleted: true}, false},
+		{pack.InventoryEntry{Path: "0x00000001/hashes/0xab.geul", Deleted: true}, false},
 		{pack.InventoryEntry{Path: "keys/a.pub"}, false},
 		{pack.InventoryEntry{Hashed: true}, false},
 	}

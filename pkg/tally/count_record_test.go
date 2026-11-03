@@ -12,16 +12,16 @@ import (
 func TestCountRecord(t *testing.T) {
 	var c Counts
 	marker := refOf(0, 1)
-	if u := countRecord(marker, wordsOf(t, marker), testSpec(), &c); u != 0 || c[0] != 1 {
-		t.Fatalf("marker: %d %d", u, c[0])
+	if u := countRecord(marker, wordsOf(t, marker), testSpec(), &c); u != 0 || c[0x001] != 1 { // UNKNOWN-VALUE 0x001L
+		t.Fatalf("marker: %d %d", u, c[0x001])
 	}
-	tr := tripleOf(t, 1, refOf(core.RefWikidataPID, 0, 31), refOf(core.RefWikidataQID, 0, 42), refOf(core.RefWikidataQID, 0, 5))
+	tr := tripleOf(t, 1, refOf(core.SchemeWikidataPID, 0, 31), refOf(core.SchemeWikidataQID, 0, 42), refOf(core.SchemeWikidataQID, 0, 5))
 	c = Counts{}
 	if u := countRecord(tr, wordsOf(t, tr), codecspec.Spec{}, &c); u != 1 || len(nonZero(c)) != 1 {
 		t.Fatalf("no spec: %d %v", u, nonZero(c))
 	}
 	c = Counts{}
-	if u := countRecord(tr, wordsOf(t, tr), testSpec(), &c); u != 0 || c[slotOf(core.KindReference, core.RefWikidataQID<<3)] != 2 {
+	if u := countRecord(tr, wordsOf(t, tr), testSpec(), &c); u != 0 || c[slotOf(core.KindReference, core.CodecWikidataQID)] != 2 {
 		t.Fatalf("spec: %d %v", u, nonZero(c))
 	}
 }

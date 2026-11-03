@@ -30,8 +30,8 @@ func TestRun(t *testing.T) {
 		t.Fatalf("%d %s", got, errs.String())
 	}
 	root := t.TempDir()
-	target := core.TargetWord(core.KindReference, core.RefWikidataQID<<3)
-	id, err := core.EncodeDocID([]core.Word{0}, []core.Word{0, 0, 0, target})
+	target := core.TargetWord(core.KindReference, core.CodecWikidataQID)
+	id, err := core.EncodeDocIDCodec([]core.Word{0, 0}, uint32(target))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -44,7 +44,7 @@ func TestRun(t *testing.T) {
 		}
 		in = append(in, ws...)
 	}
-	doc := core.PutWords(core.WrapDocument(append(in, 0x180F)))
+	doc := core.PutWords(core.WrapDocument(append(in, core.TargetWord(core.KindMeta, core.MetaEnd))))
 	if _, err := (resolve.Dir{Root: root}).PublishCodec(doc); err != nil {
 		t.Fatal(err)
 	}
@@ -56,7 +56,7 @@ func TestRun(t *testing.T) {
 	if got := run([]string{"-memory", "1000000000", "-threads", "2", wk}, &out, &errs); got != 0 {
 		t.Fatalf("%d %s", got, errs.String())
 	}
-	if !strings.Contains(out.String(), "0x0000\tEDGE\t0x1B\t1\n") {
+	if !strings.Contains(out.String(), "0x00000000\tEDGE\t0x09BL\t1\n") {
 		t.Fatalf("got %s", out.String())
 	}
 	if runtime.GOMAXPROCS(0) != 2 || debug.SetMemoryLimit(-1) != 1000000000 {

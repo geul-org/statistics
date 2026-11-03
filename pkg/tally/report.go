@@ -4,7 +4,7 @@ package tally
 
 // Report is what counting found. Unopened is how many payloads had no usable
 // codec spec: their own TAG is counted, what they embed is not. HashOnly is
-// how many h/-only inventory entries were left out.
+// how many hashes/-only inventory entries were left out.
 type Report struct {
 	Issuers  map[string]*Counts
 	Unopened uint64

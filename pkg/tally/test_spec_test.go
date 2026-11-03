@@ -12,14 +12,14 @@ import (
 // (a raw rest field each).
 func testSpec() codecspec.Spec {
 	id := []codecspec.Field{{Name: "id", Width: int(core.FieldRest)}}
-	qid := core.TargetWord(core.KindReference, core.RefWikidataQID<<3)
+	qid := core.TargetWord(core.KindReference, core.CodecWikidataQID)
 	return codecspec.Spec{
 		core.TargetWord(core.KindEdge, core.EdgeTriple): {
-			{Name: "predicate"}, {Name: "subject"}, {Name: "object", Codecs: []core.Word{0, 1, 2, qid}}, {Name: "rank", Width: 1},
+			{Name: "predicate"}, {Name: "subject"}, {Name: "object", Codecs: []core.Word{core.Absent, core.UnknownValue, core.NoValue, qid}}, {Name: "rank", Width: 1},
 		},
-		core.TargetWord(core.KindMeta, core.MetaDoc1Word):     id,
-		core.TargetWord(core.KindReference, core.RefLocal<<3): id,
+		core.TargetWord(core.KindMeta, core.MetaDoc1Word):    id,
+		core.TargetWord(core.KindReference, core.CodecLocal): id,
 		qid: id,
-		core.TargetWord(core.KindReference, core.RefWikidataPID<<3): id,
+		core.TargetWord(core.KindReference, core.CodecWikidataPID): id,
 	}
 }

@@ -9,7 +9,7 @@ import (
 )
 
 // sendDoc passes e to the workers unless it is dead, a deletion or no document
-// address. An h/-only record is only tallied in r: it has no address of its
+// address. A hashes/-only record (`<Issuer>/hashes/`) is only tallied in r: it has no address of its
 // own, and it may be a superseded version.
 func sendDoc(ctx context.Context, e pack.InventoryEntry, dead bool, jobs chan<- pack.InventoryEntry, r *Report) error {
 	if e.Path == "" {

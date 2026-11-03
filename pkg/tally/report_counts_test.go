@@ -6,9 +6,9 @@ import "testing"
 
 func TestReportCounts(t *testing.T) {
 	r := newReport()
-	a := r.counts("0x0001")
+	a := r.counts("0x00000001")
 	a[3] = 7
-	if b := r.counts("0x0001"); b != a || b[3] != 7 || len(r.Issuers) != 1 {
+	if b := r.counts("0x00000001"); b != a || b[3] != 7 || len(r.Issuers) != 1 {
 		t.Fatalf("got %v", r.Issuers)
 	}
 }

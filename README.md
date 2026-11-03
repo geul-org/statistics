@@ -1,6 +1,6 @@
 # statistics
 
-pack 아카이브의 GEUL TAG 사용량을 Issuer별로 센다. TAG WORD `000K KLLL LCCC CCCC`에서 Length(LLLL)를 빼고, Reference는 Kind + `CCCC`(4비트), Value·Edge·Meta는 Kind + `CCCCCCC`(7비트)로 묶는다.
+pack 아카이브의 GEUL TAG 사용량을 Issuer별로 센다. TAG WORD `000K KKCC CCCC LLLL`에서 Length(LLLL)만 빼고 9비트 코드(`w>>4`, TAG ID `0x000L`~`0x1FFL`)로 센다. 그 밖에는 묶지 않는다: Reference의 양화, 자리 표지, 포인터도 각자의 코드다.
 
 ## 사용법
 
@@ -8,33 +8,33 @@ pack 아카이브의 GEUL TAG 사용량을 Issuer별로 센다. TAG WORD `000K K
 go run ./cmd/statistics [-memory 바이트] [-threads n] 아카이브...
 ```
 
-- 아카이브는 `.well-known/geul/` 폴더이거나 pack set 폴더 하나(`.../0x0000`)다. 여러 개를 주면 합친다. 같은 문서를 두 번 주면 두 번 센다.
-- 규격 문서가 든 `0x0000`이 인자 중 하나에 있어야 한다. 위키데이터 전체 아카이브에는 없으므로 `0x0000` set을 함께 준다.
+- 아카이브는 `.well-known/geul/` 폴더이거나 pack set 폴더 하나(`.../0x00000000`)다. 여러 개를 주면 합친다. 같은 문서를 두 번 주면 두 번 센다.
+- 코덱 문서(`0x00000000/codecs/`)가 든 `0x00000000` set이 인자 중 하나에 있어야 한다. 위키데이터 아카이브에는 없으므로 `0x00000000` set을 함께 준다.
 - `-memory`는 프로세스 메모리 한도다(`debug.SetMemoryLimit`). 절반이 경로 추적 표의 상한이다. 0이면 한도가 없다.
 - `-threads`는 스레드 수다(`GOMAXPROCS`). 기본값은 전체 코어다.
 
 ```bash
 statistics -memory 1800000000 -threads 19 \
-  draft/geul-org/artifacts/geul/.well-known/geul/0x0000 \
-  files/wikidata/full-20261019/.well-known/geul
+  draft/geul-org/artifacts/geul/.well-known/geul/0x00000000 \
+  <위키데이터 아카이브>/.well-known/geul/0x00000001
 ```
 
-출력은 표준 출력의 TSV 한 형식이다. 열은 `issuer`, `kind`, `codec`, `count`이고 첫 줄이 머리다. `kind`는 `REFERENCE`·`VALUE`·`EDGE`·`META`, `codec`은 hex다(Reference는 한 자리, 나머지는 두 자리).
+출력은 표준 출력의 TSV 한 형식이다. 열은 `issuer`, `kind`, `codec`, `count`이고 첫 줄이 머리다. `kind`는 `REFERENCE`·`VALUE`·`EDGE`·`META`, `codec`은 TAG ID 표기 `0x000L`(9비트 코드 세 자리와 버린 Length 자리 L)이다.
 
 ```
 issuer	kind	codec	count
-0x0000	EDGE	0x03	9066
-0x00010000	REFERENCE	0x4	4759167
+0x00000000	EDGE	0x083L	9066
+0x00000001	REFERENCE	0x014L	4759167
 ```
 
 ## 무엇을 세는가
 
-- **문서.** 살아 있는 문서 주소(`<Issuer>/<문서 ID>/<버전 ID>.geul`, `versions.geul`, `documents.geul`, `issuers.geul`)마다 그 최신 레코드 하나. 버전 목록도 문서이고 버전마다 따로 센다. diff로 저장된 버전은 저장된 그대로 센다.
-- **h/ 주소는 세지 않는다.** 내용 해시 조회일 뿐 문서의 주소가 아니고, 지난 버전도 그 주소로 남는다. h/ 전용 레코드는 건수만 표준 오류로 알린다.
+- **문서.** 살아 있는 문서 주소(공표 주소 체계: `<Issuer>/docs/<문서 ID>/`, `<Issuer>/codecs/<코덱 ID>/`의 `<버전 ID>.geul`과 `versions.geul`, 목록 `issuers/`, `<Issuer>/docs/`, `<Issuer>/codecs/`의 `<버전 ID>.geul`과 `versions.geul`)마다 그 최신 레코드 하나. 버전 목록도 문서이고 버전마다 따로 센다. diff로 저장된 버전은 저장된 그대로 센다.
+- **`<Issuer>/hashes/` 주소는 세지 않는다.** 내용 해시 조회일 뿐 문서의 주소가 아니고, 지난 버전도 그 주소로 남는다. hashes/ 전용 레코드는 건수만 표준 오류로 알린다.
 - **레코드.** 문서의 레코드 전부. `DOC-*`, `BODY`, `END`도 TAG이므로 센다.
 - **내장 레코드도 센다.** Edge의 구성요소(Edge Id 포함), Meta의 내장 Value·Reference, 값 안의 값(QUANTITY의 amount, UTF8-LANGUAGE-TEXT의 언어)은 레코드 안에 있지만 각자 TAG WORD가 있다. 자리 표지는 TRIPLE의 Object처럼 내장으로만 나온다. 경계는 `core.DecodeRecord`와 Codec 규격에 따른 `inspect.Layout`으로 찾고 깊이 제한 없이 내려간다.
-- **규격이 없으면 열지 않는다.** 날값이 TAG처럼 보일 수 있어 Payload는 규격 없이 레코드로 읽지 않는다. 그 레코드 자신의 TAG만 세고, 열지 못한 건수를 표준 오류로 알린다. ISSUER 형식(`0x7C`~`0x7F`)은 아직 규격을 찾지 않으므로 여기에 든다.
-- **Issuer**는 문서 주소의 첫 칸이다. 버전 목록처럼 DOC-ID가 없는 문서도 주소에는 Issuer가 있다. `issuers.geul`처럼 주소에 없으면 그 문서를 담은 set의 Issuer다.
+- **규격이 없으면 열지 않는다.** 날값이 TAG처럼 보일 수 있어 Payload는 규격 없이 레코드로 읽지 않는다. 그 레코드 자신의 TAG만 세고, 열지 못한 건수를 표준 오류로 알린다. ISSUER 형식(각 Kind 구역의 끝 세 칸: Reference `0x03DL`~`0x03FL`, Value `0x07DL`~`0x07FL`, Edge `0x1BDL`~`0x1BFL`)은 아직 규격을 찾지 않으므로 여기에 든다.
+- **Issuer**는 문서 주소의 첫 칸이다. 버전 목록처럼 DOC-ID가 없는 문서도 주소에는 Issuer가 있다. Issuer 목록 `issuers/`는 geul.org `0x00000000`의 것이다. 그 밖에 주소에 없으면 그 문서를 담은 set의 Issuer다.
 
 ## 경로 추적
 

@@ -12,16 +12,16 @@ import (
 func TestCountParts(t *testing.T) {
 	var c Counts
 	parts := []inspect.Part{
-		{Name: "TAG", Words: []core.Word{0x1000}, Head: true},
+		{Name: "TAG", Words: []core.Word{0x0800}, Head: true},
 		{Name: "rank", Words: []core.Word{0}},
 		{Name: "ID", Words: wordsOf(t, core.EncodeLocalRef(1)), Record: true},
-		{Name: genericPayload, Words: []core.Word{0x0088}},
+		{Name: genericPayload, Words: []core.Word{0x0051}},
 		{Name: "broken", Words: []core.Word{0x2000}, Record: true},
 	}
 	if u := countParts(parts, testSpec(), &c); u != 2 {
 		t.Fatalf("unopened %d", u)
 	}
-	if n := nonZero(c); len(n) != 1 || c[slotOf(core.KindReference, core.RefLocal<<3)] != 1 {
+	if n := nonZero(c); len(n) != 1 || c[slotOf(core.KindReference, core.CodecLocal)] != 1 {
 		t.Fatalf("counts %v", n)
 	}
 }

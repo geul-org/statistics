@@ -22,18 +22,18 @@ func TestCountPack(t *testing.T) {
 		t.Fatal(err)
 	}
 	total := newReport()
-	if err := countPack(ctx, s, 1, s.packs[1], dead, testSpec(), "0x0001", 3, total); err != nil {
+	if err := countPack(ctx, s, 1, s.packs[1], dead, testSpec(), "0x00000001", 3, total); err != nil {
 		t.Fatal(err)
 	}
-	if got := total.Issuers["0x0001"][slotOf(core.KindMeta, core.MetaEnd)]; got != 2 || total.HashOnly != 1 {
+	if got := total.Issuers["0x00000001"][slotOf(core.KindMeta, core.MetaEnd)]; got != 2 || total.HashOnly != 1 {
 		t.Fatalf("got %d %+v", got, total) // b and d
 	}
 	s.recFail, s.err = true, errors.New("broken record")
-	if err := countPack(ctx, s, 0, s.packs[0], dead, testSpec(), "0x0001", 2, newReport()); !errors.Is(err, s.err) {
+	if err := countPack(ctx, s, 0, s.packs[0], dead, testSpec(), "0x00000001", 2, newReport()); !errors.Is(err, s.err) {
 		t.Fatalf("got %v", err)
 	}
 	s.recFail, s.invCall, s.invFail = false, new(int), 1
-	if err := countPack(ctx, s, 0, s.packs[0], dead, testSpec(), "0x0001", 2, newReport()); !errors.Is(err, s.err) {
+	if err := countPack(ctx, s, 0, s.packs[0], dead, testSpec(), "0x00000001", 2, newReport()); !errors.Is(err, s.err) {
 		t.Fatalf("got %v", err)
 	}
 }

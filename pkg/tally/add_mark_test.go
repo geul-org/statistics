@@ -10,7 +10,7 @@ import (
 func TestAddMark(t *testing.T) {
 	marks := make([]mark, 1)
 	used := 0
-	if err := addMark("h/0xab.geul", 1, 0, 1, marks, &used); err != nil || used != 0 {
+	if err := addMark("0x00000001/hashes/0xab.geul", 1, 0, 1, marks, &used); err != nil || used != 0 {
 		t.Fatalf("%v %d", err, used)
 	}
 	other := (markOf("a.geul", 0).h0%2 + 1) % 2

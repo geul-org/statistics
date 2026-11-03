@@ -18,8 +18,8 @@ import (
 func TestRun(t *testing.T) {
 	ctx := context.Background()
 	wk := specArchive(t)
-	set := filepath.Join(wk, "0x0001")
-	qid := refOf(core.RefWikidataQID, 1, 42)
+	set := filepath.Join(wk, "0x00000001")
+	qid := refOf(core.SchemeWikidataQID, 1, 42)
 	h := docOf(t, qid)
 	ws, _ := core.ReadWords(h)
 	sum, err := core.ContentHash(ws)
@@ -27,22 +27,22 @@ func TestRun(t *testing.T) {
 		t.Fatal(err)
 	}
 	writeGen(t, set, map[string][]byte{
-		"0x0001/0x0000000000000001/0x00000001.geul":   docOf(t, qid, refOf(core.RefLocal, 0, 7)),
-		"h/0x" + hex.EncodeToString(sum[:]) + ".geul": h,
+		"0x00000001/docs/0x0000000000000001/0x00000001.geul":          docOf(t, qid, refOf(core.SchemeLocal, 0, 7)),
+		"0x00000001/hashes/0x" + hex.EncodeToString(sum[:]) + ".geul": h,
 	})
 	var out, notice bytes.Buffer
 	if err := Run(ctx, []string{wk}, Options{Threads: 2}, &out, &notice); err != nil {
 		t.Fatal(err)
 	}
-	for _, row := range []string{"0x0001\tREFERENCE\t0x4\t1\n", "0x0001\tREFERENCE\t0x1\t1\n", "0x0001\tMETA\t0x0F\t1\n"} {
+	for _, row := range []string{"0x00000001\tREFERENCE\t0x015L\t1\n", "0x00000001\tREFERENCE\t0x005L\t1\n", "0x00000001\tMETA\t0x1C4L\t1\n"} {
 		if !strings.Contains(out.String(), row) {
 			t.Fatalf("no %q in\n%s", row, out.String())
 		}
 	}
-	if !strings.HasPrefix(out.String(), "issuer\tkind\tcodec\tcount\n0x0000\t") {
+	if !strings.HasPrefix(out.String(), "issuer\tkind\tcodec\tcount\n0x00000000\t") {
 		t.Fatalf("got %s", out.String())
 	}
-	if n := notice.String(); !strings.Contains(n, "payloads have no usable") || !strings.Contains(n, "1 h/-only records") {
+	if n := notice.String(); !strings.Contains(n, "payloads have no usable") || !strings.Contains(n, "1 hashes/-only records") {
 		t.Fatalf("notice %q", n)
 	}
 	if err := Run(ctx, []string{t.TempDir()}, Options{Threads: 1}, &out, &notice); err == nil {

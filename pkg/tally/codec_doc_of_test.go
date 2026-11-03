@@ -11,13 +11,13 @@ import (
 // codecDocOf builds the spec document of target with one rest field.
 func codecDocOf(t *testing.T, target core.Word) []byte {
 	t.Helper()
-	id, err := core.EncodeDocID([]core.Word{0}, []core.Word{0, 0, 0, target})
+	id, err := core.EncodeDocIDCodec([]core.Word{0, 0}, uint32(target))
 	if err != nil {
 		t.Fatal(err)
 	}
 	in := wordsOf(t, core.EncodeSpecVersion(core.SpecVersion), id)
-	in = append(in, 0x180E)
+	in = append(in, core.TargetWord(core.KindMeta, core.MetaBody))
 	in = append(in, wordsOf(t, core.EncodeDeclare(core.Declare{EdgeID: 1, Target: target}),
 		core.EncodeFieldDecl(core.FieldDecl{EdgeID: 2, Declare: 1, Width: core.FieldRest}))...)
-	return core.PutWords(core.WrapDocument(append(in, 0x180F)))
+	return core.PutWords(core.WrapDocument(append(in, core.TargetWord(core.KindMeta, core.MetaEnd))))
 }

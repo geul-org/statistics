@@ -20,7 +20,7 @@ func TestOpenArchives(t *testing.T) {
 	if _, err := openArchives(ctx, []string{t.TempDir()}); err == nil || !strings.Contains(err.Error(), "no pack set") {
 		t.Fatalf("got %v", err)
 	}
-	if err := os.WriteFile(filepath.Join(wk, "0x0000", "latest.txt"), []byte("1 00\n"), 0o644); err != nil {
+	if err := os.WriteFile(filepath.Join(wk, "0x00000000", "latest.txt"), []byte("1 00\n"), 0o644); err != nil {
 		t.Fatal(err)
 	}
 	if _, err := openArchives(ctx, []string{wk}); err == nil {

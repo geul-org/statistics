@@ -11,5 +11,5 @@ import (
 // docOf wraps rs into a document without BODY marker, as an empty HEAD allows.
 func docOf(t *testing.T, rs ...core.Record) []byte {
 	t.Helper()
-	return core.PutWords(core.WrapDocument(append(wordsOf(t, rs...), 0x180F)))
+	return core.PutWords(core.WrapDocument(append(wordsOf(t, rs...), core.TargetWord(core.KindMeta, core.MetaEnd))))
 }

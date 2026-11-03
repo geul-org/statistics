@@ -1,18 +1,25 @@
 //ff:func feature=archive type=resolver control=iteration dimension=1
-//ff:what specTargets — 규격 문서가 있을 수 있는 대상 WORD 전부: Reference 15개, 나머지 Kind의 직접 코드
+//ff:what specTargets — 규격 문서가 있을 수 있는 대상 WORD 전부: 512 코드 중 자리 표지, 묶음 머리가 아닌 양화, ISSUER 코드를 뺀 것
 package tally
 
 import "github.com/geul-org/gogeul/pkg/core"
 
-// specTargets lists every direct codec's target word. Codec 0000 is reserved
-// and has no spec, and ISSUER codes are not looked up (codecspec.Spec.Of).
+// specTargets lists the target word (L=0) of every direct code that may have
+// a codec document: all 512 codes but the slot markers (C < 3, no spec), the
+// Reference Quantifiers other than Identified (a 5Q scheme's spec is its
+// Identified head, C - C%5) and the ISSUER codes, which are not looked up
+// (codecspec.Spec.Of).
 func specTargets() []core.Word {
 	var out []core.Word
-	for c := uint8(1); c < 16; c++ {
-		out = append(out, core.TargetWord(core.KindReference, c<<3))
-	}
-	for c := uint8(0); c < 0x7C; c++ {
-		out = append(out, core.TargetWord(core.KindValue, c), core.TargetWord(core.KindEdge, c), core.TargetWord(core.KindMeta, c))
+	for code := core.Word(0); code < 0x200; code++ {
+		w := code << 4
+		k := core.KindOf(w)
+		c := uint16(code) - uint16(core.TargetWord(k, 0)>>4)
+		skip := k == core.KindReference && (core.IsSlotMarkerCodec(c) || core.RefIdentified(c) != c)
+		if skip || core.IssuerWidth(k, c) != 0 {
+			continue
+		}
+		out = append(out, w)
 	}
 	return out
 }

@@ -13,8 +13,8 @@ import (
 
 func TestCountArchives(t *testing.T) {
 	ctx := context.Background()
-	dir := filepath.Join(t.TempDir(), "0x0002")
-	writeGen(t, dir, map[string][]byte{"0x0002/0x0000000000000001/0x00000001.geul": docOf(t)})
+	dir := filepath.Join(t.TempDir(), "0x00000002")
+	writeGen(t, dir, map[string][]byte{"0x00000002/docs/0x0000000000000001/0x00000001.geul": docOf(t)})
 	archives, err := openArchives(ctx, []string{dir, dir})
 	if err != nil {
 		t.Fatal(err)
@@ -23,7 +23,7 @@ func TestCountArchives(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if r.Issuers["0x0002"][slotOf(core.KindMeta, core.MetaEnd)] != 2 {
+	if r.Issuers["0x00000002"][slotOf(core.KindMeta, core.MetaEnd)] != 2 {
 		t.Fatalf("got %+v", r)
 	}
 	if err := os.Remove(filepath.Join(dir, "latest.txt")); err != nil {

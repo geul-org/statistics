@@ -16,7 +16,7 @@ func twoPackSource() fakeSource {
 		},
 		9: {
 			{Path: "b.geul", Loc: l(6)}, {Path: "c.geul", Deleted: true}, {Path: "d.geul", Deleted: true},
-			{Path: "d.geul", Loc: l(7)}, {Path: "h/0xab.geul", Deleted: true}, {Loc: l(8), Hashed: true},
+			{Path: "d.geul", Loc: l(7)}, {Path: "0x00000001/hashes/0xab.geul", Deleted: true}, {Loc: l(8), Hashed: true},
 			{Path: "keys/a.pub", Loc: l(9)},
 		},
 	}}

@@ -21,21 +21,21 @@ func TestDocWorker(t *testing.T) {
 	ctx, cancel := context.WithCancelCause(context.Background())
 	defer cancel(nil)
 	r := newReport()
-	docWorker(ctx, cancel, jobs, s, testSpec(), "0x0001", r)
-	if ctx.Err() != nil || r.Issuers["0x0001"][end] != 2 {
+	docWorker(ctx, cancel, jobs, s, testSpec(), "0x00000001", r)
+	if ctx.Err() != nil || r.Issuers["0x00000001"][end] != 2 {
 		t.Fatalf("%v %+v", ctx.Err(), r)
 	}
 	s.recFail = true
 	jobs = make(chan pack.InventoryEntry, 1)
 	jobs <- pack.InventoryEntry{Path: "a.geul"}
-	docWorker(ctx, cancel, jobs, s, testSpec(), "0x0001", newReport())
+	docWorker(ctx, cancel, jobs, s, testSpec(), "0x00000001", newReport())
 	if !errors.Is(context.Cause(ctx), s.err) {
 		t.Fatalf("got %v", context.Cause(ctx))
 	}
 	jobs = make(chan pack.InventoryEntry, 1)
 	jobs <- pack.InventoryEntry{Path: "a.geul"}
 	r = newReport()
-	docWorker(ctx, cancel, jobs, s, testSpec(), "0x0001", r)
+	docWorker(ctx, cancel, jobs, s, testSpec(), "0x00000001", r)
 	if len(jobs) != 0 || len(r.Issuers) != 0 {
 		t.Fatalf("cancelled: %d %+v", len(jobs), r)
 	}

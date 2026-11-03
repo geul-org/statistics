@@ -1,5 +1,5 @@
-//ff:func feature=report type=helper control=sequence
-//ff:what TestSlotKey — Reference는 hex 한 자리, 나머지는 두 자리
+//ff:func feature=report type=helper control=iteration dimension=1
+//ff:what TestSlotKey — kind는 KKK로, codec은 TAG ID 0x000L 표기로
 package tally
 
 import (
@@ -9,13 +9,19 @@ import (
 )
 
 func TestSlotKey(t *testing.T) {
-	if k, c := slotKey(slotOf(core.KindReference, 0x20)); k != "REFERENCE" || c != "0x4" {
-		t.Fatalf("got %s %s", k, c)
-	}
-	if k, c := slotKey(slotOf(core.KindEdge, 0x0A)); k != "EDGE" || c != "0x0A" {
-		t.Fatalf("got %s %s", k, c)
-	}
-	if k, c := slotKey(slotOf(core.KindValue, 0x7C)); k != "VALUE" || c != "0x7C" {
-		t.Fatalf("got %s %s", k, c)
+	for _, c := range []struct {
+		slot       int
+		kind, code string
+	}{
+		{slotOf(core.KindReference, core.CodecWikidataQID), "REFERENCE", "0x014L"},
+		{slotOf(core.KindReference, 0), "REFERENCE", "0x000L"},
+		{slotOf(core.KindValue, core.CodecLanguageShortCode), "VALUE", "0x05AL"},
+		{slotOf(core.KindEdge, core.EdgeTriple), "EDGE", "0x08AL"},
+		{slotOf(core.KindEdge, core.CodecEdgeIssuer2Word), "EDGE", "0x1BDL"},
+		{slotOf(core.KindMeta, core.MetaEnd), "META", "0x1C4L"},
+	} {
+		if k, code := slotKey(c.slot); k != c.kind || code != c.code {
+			t.Fatalf("slot %d: %s %s want %s %s", c.slot, k, code, c.kind, c.code)
+		}
 	}
 }

@@ -1,5 +1,5 @@
 //ff:func feature=archive type=helper control=sequence
-//ff:what specArchive — 시험용: 0x0000에 규격 문서 하나를 공표한 `.well-known/geul` pack 폴더
+//ff:what specArchive — 시험용: 0x00000000/codecs/에 코덱 문서 하나를 공표한 `.well-known/geul` pack 폴더
 package tally
 
 import (
@@ -16,7 +16,7 @@ import (
 func specArchive(t *testing.T) string {
 	t.Helper()
 	root := t.TempDir()
-	target := core.TargetWord(core.KindReference, core.RefWikidataQID<<3)
+	target := core.TargetWord(core.KindReference, core.CodecWikidataQID)
 	if _, err := (resolve.Dir{Root: root}).PublishCodec(codecDocOf(t, target)); err != nil {
 		t.Fatal(err)
 	}
