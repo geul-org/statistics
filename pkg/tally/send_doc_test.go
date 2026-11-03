@@ -15,15 +15,16 @@ func TestSendDoc(t *testing.T) {
 	defer cancel(nil)
 	jobs := make(chan pack.InventoryEntry, 1)
 	r := newReport()
-	live := pack.InventoryEntry{Path: "a.geul"}
+	live := pack.InventoryEntry{Path: "0x00000001/docs/0x000000000000000a/0x00000001.geul"}
 	skip := []struct {
 		e    pack.InventoryEntry
 		dead bool
 	}{
 		{live, true},
-		{pack.InventoryEntry{Path: "a.geul", Deleted: true}, false},
+		{pack.InventoryEntry{Path: "0x00000001/docs/0x000000000000000a/0x00000001.geul", Deleted: true}, false},
 		{pack.InventoryEntry{Path: "0x00000001/hashes/0xab.geul", Deleted: true}, false},
 		{pack.InventoryEntry{Path: "keys/a.pub"}, false},
+		{pack.InventoryEntry{Path: "0x00000001/docs/versions.geul"}, false},
 		{pack.InventoryEntry{Hashed: true}, false},
 	}
 	for _, c := range skip {

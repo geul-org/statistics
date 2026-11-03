@@ -29,7 +29,7 @@ issuer	kind	codec	count
 
 ## 무엇을 세는가
 
-- **문서.** 살아 있는 문서 주소(공표 주소 체계: `<Issuer>/docs/<문서 ID>/`, `<Issuer>/codecs/<코덱 ID>/`의 `<버전 ID>.geul`과 `versions.geul`, 목록 `issuers/`, `<Issuer>/docs/`, `<Issuer>/codecs/`의 `<버전 ID>.geul`과 `versions.geul`)마다 그 최신 레코드 하나. 버전 목록도 문서이고 버전마다 따로 센다. diff로 저장된 버전은 저장된 그대로 센다.
+- **문서.** 살아 있는 문서 주소(공표 주소 10가지 중 `hashes/`를 뺀 것: `<Issuer>/docs/<문서 ID 16자리>/`, `<Issuer>/codecs/<코덱 ID 8자리>/`, Issuer 목록 `issuers/`의 `<버전 ID>.geul`·`versions.geul`·`latest.geul`)마다 그 최신 레코드 하나. docs·codecs 목록은 없다(§1.1 101). 형식 밖 경로(옛 `<Issuer>/docs/<버전 ID>.geul` 같은 목록 경로 포함)는 문서로 세지 않는다. 버전 목록도 문서이고 버전마다 따로 센다. diff로 저장된 버전은 저장된 그대로 센다.
 - **`<Issuer>/hashes/` 주소는 세지 않는다.** 내용 해시 조회일 뿐 문서의 주소가 아니고, 지난 버전도 그 주소로 남는다. hashes/ 전용 레코드는 건수만 표준 오류로 알린다.
 - **레코드.** 문서의 레코드 전부. `DOC-*`, `BODY`, `END`도 TAG이므로 센다.
 - **내장 레코드도 센다.** Edge의 구성요소(Edge Id 포함), Meta의 내장 Value·Reference, 값 안의 값(QUANTITY의 amount, UTF8-LANGUAGE-TEXT의 언어)은 레코드 안에 있지만 각자 TAG WORD가 있다. 자리 표지는 TRIPLE의 Object처럼 내장으로만 나온다. 경계는 `core.DecodeRecord`와 Codec 규격에 따른 `inspect.Layout`으로 찾고 깊이 제한 없이 내려간다.

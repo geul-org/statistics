@@ -11,10 +11,10 @@ const issuersDir = "issuers"
 // geulIssuer is geul.org's Issuer ID, the Issuer of the Issuer list (§1.1 96).
 const geulIssuer = "0x00000000"
 
-// issuerOf reads the Issuer from a document's address, which every kind of
-// document has, version lists without a DOC-ID too. The Issuer list
-// `issuers/` is geul.org's; any other address without an Issuer belongs to
-// the Issuer of the set holding it.
+// issuerOf reads the Issuer from a document's address (isDocPath), which
+// every kind of document has, version lists without a DOC-ID too. The Issuer
+// list `issuers/` is geul.org's. A path without an Issuer, which isDocPath
+// does not pass, falls back to the Issuer of the set holding it.
 func issuerOf(path, set string) string {
 	first, _, nested := strings.Cut(path, "/")
 	switch {

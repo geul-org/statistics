@@ -8,10 +8,11 @@ func TestIssuerOf(t *testing.T) {
 	for p, want := range map[string]string{
 		"0x00000001/docs/0x5000000000000006/versions.geul":   "0x00000001",
 		"0x00000001/docs/0x5000000000000006/0x00000001.geul": "0x00000001",
-		"0x00000002/docs/0x00000001.geul":                    "0x00000002",
-		"0x0000000100000000/codecs/0x00000001.geul":          "0x0000000100000000",
+		"0x00000002/docs/0x0000000000000001/versions.geul":   "0x00000002",
+		"0x0000000100000000/codecs/0x0000c000/latest.geul":   "0x0000000100000000",
 		"issuers/0x00000001.geul":                            "0x00000000",
-		"0x0001/docs/0x00000001.geul":                        "0x00000009",
+		"issuers/versions.geul":                              "0x00000000",
+		"0x0001/docs/0x0000000000000001/versions.geul":       "0x00000009",
 		"other/name.geul":                                    "0x00000009",
 		"name.geul":                                          "0x00000009",
 	} {
