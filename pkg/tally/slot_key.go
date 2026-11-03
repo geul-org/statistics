@@ -8,7 +8,7 @@ import (
 	"github.com/geul-org/gogeul/pkg/core"
 )
 
-// slotKey names a slot: the Kind's spec name, read from KKK, and the code as
+// slotKey names a slot: the Kind's spec name, read from the section KKKK, and the code as
 // a TAG ID `0x000L` (three hex digits and L for the Length bits left out).
 func slotKey(slot int) (string, string) {
 	return core.KindOf(core.Word(slot) << 4).String(), fmt.Sprintf("0x%03XL", slot)

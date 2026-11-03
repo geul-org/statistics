@@ -7,7 +7,7 @@ import "github.com/geul-org/gogeul/pkg/core"
 // specTargets lists the target word (L=0) of every direct code that may have
 // a codec document: all 512 codes but the slot markers (C < 3, no spec), the
 // Reference Quantifiers other than Identified (a 5Q scheme's spec is its
-// Identified head, C - C%5) and the ISSUER codes, which are not looked up
+// Identified head, core.RefIdentified) and the ISSUER codes, which are not looked up
 // (codecspec.Spec.Of).
 func specTargets() []core.Word {
 	var out []core.Word

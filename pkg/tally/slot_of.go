@@ -4,7 +4,7 @@ package tally
 
 import "github.com/geul-org/gogeul/pkg/core"
 
-// slotOf is the slot of a record: the 9-bit code of its TAG WORD `000K KKCC
+// slotOf is the slot of a record: the 9-bit code of its TAG WORD `000K KKKC
 // CCCC LLLL` (w>>4, TAG ID 0x000L~0x1FFL), the start of its Kind's zone plus
 // its Record Codec. Only LLLL is dropped: a Reference keeps its Quantifier,
 // and the slot markers and pointers are codes of their own.

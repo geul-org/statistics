@@ -16,10 +16,10 @@ func TestSlotOf(t *testing.T) {
 	if got := slotOf(core.KindReference, 2); got != 0x002 {
 		t.Fatalf("slot marker NO-VALUE: 0x%03X", got)
 	}
-	if a, b := slotOf(core.KindValue, core.CodecUTF8TextEven), slotOf(core.KindValue, core.CodecUTF8TextEven+1); a != 0x052 || b != 0x053 {
+	if a, b := slotOf(core.KindValue, core.CodecUTF8TextEven), slotOf(core.KindValue, core.CodecUTF8TextEven+1); a != 0x072 || b != 0x073 {
 		t.Fatalf("UTF8-TEXT even/odd: 0x%03X 0x%03X", a, b)
 	}
-	if got := slotOf(core.KindEdge, core.EdgeTriple); got != 0x08A {
+	if got := slotOf(core.KindEdge, core.EdgeTriple); got != 0x0AA {
 		t.Fatalf("TRIPLE: 0x%03X", got)
 	}
 	if got := slotOf(core.KindEdge, core.CodecEdgeIssuer16Word); got != 0x1BF {

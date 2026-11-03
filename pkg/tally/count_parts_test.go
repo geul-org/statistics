@@ -12,7 +12,7 @@ import (
 func TestCountParts(t *testing.T) {
 	var c Counts
 	parts := []inspect.Part{
-		{Name: "TAG", Words: []core.Word{0x0800}, Head: true},
+		{Name: "TAG", Words: []core.Word{0x0A00}, Head: true},
 		{Name: "rank", Words: []core.Word{0}},
 		{Name: "ID", Words: wordsOf(t, core.EncodeLocalRef(1)), Record: true},
 		{Name: genericPayload, Words: []core.Word{0x0051}},

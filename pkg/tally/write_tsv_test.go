@@ -22,7 +22,7 @@ func TestWriteTSV(t *testing.T) {
 	want := "issuer\tkind\tcodec\tcount\n" +
 		"0x00000000\tREFERENCE\t0x014L\t3\n" +
 		"0x00000000\tMETA\t0x1C4L\t2\n" +
-		"0x0000000100000000\tEDGE\t0x08AL\t5\n"
+		"0x0000000100000000\tEDGE\t0x0AAL\t5\n"
 	if out.String() != want {
 		t.Fatalf("got %q", out.String())
 	}

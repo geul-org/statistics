@@ -19,7 +19,7 @@ func TestRun(t *testing.T) {
 	ctx := context.Background()
 	wk := specArchive(t)
 	set := filepath.Join(wk, "0x00000001")
-	qid := refOf(core.SchemeWikidataQID, 1, 42)
+	qid := refOf(core.CodecWikidataQID, 1, 42)
 	h := docOf(t, qid)
 	ws, _ := core.ReadWords(h)
 	sum, err := core.ContentHash(ws)
@@ -27,7 +27,7 @@ func TestRun(t *testing.T) {
 		t.Fatal(err)
 	}
 	writeGen(t, set, map[string][]byte{
-		"0x00000001/docs/0x0000000000000001/0x00000001.geul":          docOf(t, qid, refOf(core.SchemeLocal, 0, 7)),
+		"0x00000001/docs/0x0000000000000001/0x00000001.geul":          docOf(t, qid, refOf(core.CodecLocal, 0, 7)),
 		"0x00000001/hashes/0x" + hex.EncodeToString(sum[:]) + ".geul": h,
 	})
 	var out, notice bytes.Buffer

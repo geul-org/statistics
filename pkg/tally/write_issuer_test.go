@@ -9,8 +9,8 @@ import (
 
 func TestWriteIssuer(t *testing.T) {
 	var out bytes.Buffer
-	writeIssuer(&out, "0x00000001", &Counts{0x08A: 9})
-	if out.String() != "0x00000001\tEDGE\t0x08AL\t9\n" {
+	writeIssuer(&out, "0x00000001", &Counts{0x0AA: 9})
+	if out.String() != "0x00000001\tEDGE\t0x0AAL\t9\n" {
 		t.Fatalf("got %q", out.String())
 	}
 }

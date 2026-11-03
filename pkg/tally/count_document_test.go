@@ -9,13 +9,13 @@ import (
 )
 
 func TestCountDocument(t *testing.T) {
-	pred := refOf(core.SchemeWikidataPID, 0, 31)
+	pred := refOf(core.CodecWikidataPID, 0, 31)
 	// QID 1 WORD and 2 WORD target (LLLL differs), Identified and Generic;
 	// the objects are the slot markers ABSENT, UNKNOWN-VALUE and NO-VALUE.
 	b := docOf(t,
-		tripleOf(t, 1, pred, refOf(core.SchemeWikidataQID, 0, 42), refOf(0, 0)),
-		tripleOf(t, 2, pred, refOf(core.SchemeWikidataQID, 1, 1, 0), refOf(0, 1)),
-		tripleOf(t, 3, pred, refOf(core.SchemeWikidataQID, 0, 42), refOf(0, 2)),
+		tripleOf(t, 1, pred, refOf(core.CodecWikidataQID, 0, 42), refOf(0, 0)),
+		tripleOf(t, 2, pred, refOf(core.CodecWikidataQID, 1, 1, 0), refOf(0, 1)),
+		tripleOf(t, 3, pred, refOf(core.CodecWikidataQID, 0, 42), refOf(0, 2)),
 		core.EncodeBytesValue(core.CodecUTF8TextEven, []byte("ab")),
 		core.EncodeBytesValue(core.CodecUTF8TextEven, []byte("abcdef")),
 	)

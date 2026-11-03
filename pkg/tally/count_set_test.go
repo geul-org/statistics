@@ -18,9 +18,9 @@ func TestCountSet(t *testing.T) {
 	t.Cleanup(func() { runtime.GOMAXPROCS(procs) })
 	ctx := context.Background()
 	dir := t.TempDir()
-	pred := refOf(core.SchemeWikidataPID, 0, 31)
+	pred := refOf(core.CodecWikidataPID, 0, 31)
 	one := func(obj core.Word) core.Record {
-		return tripleOf(t, 1, pred, refOf(core.SchemeWikidataQID, 0, 42), refOf(core.SchemeWikidataQID, 0, obj))
+		return tripleOf(t, 1, pred, refOf(core.CodecWikidataQID, 0, 42), refOf(core.CodecWikidataQID, 0, obj))
 	}
 	oldA := docOf(t, one(1))
 	newA := docOf(t, one(2), one(3))

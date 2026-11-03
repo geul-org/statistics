@@ -56,7 +56,7 @@ func TestRun(t *testing.T) {
 	if got := run([]string{"-memory", "1000000000", "-threads", "2", wk}, &out, &errs); got != 0 {
 		t.Fatalf("%d %s", got, errs.String())
 	}
-	if !strings.Contains(out.String(), "0x00000000\tEDGE\t0x09BL\t1\n") {
+	if !strings.Contains(out.String(), "0x00000000\tEDGE\t0x0BBL\t1\n") {
 		t.Fatalf("got %s", out.String())
 	}
 	if runtime.GOMAXPROCS(0) != 2 || debug.SetMemoryLimit(-1) != 1000000000 {
