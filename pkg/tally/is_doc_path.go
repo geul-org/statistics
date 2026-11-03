@@ -11,7 +11,7 @@ import (
 // the Issuer list `issuers/<leaf>`, a document `<Issuer>/docs/<문서 ID 16자리>/<leaf>`
 // and a codec `<Issuer>/codecs/<코덱 ID 8자리>/<leaf>`. There is no docs or
 // codecs list (§1.1 101).
-var docPath = regexp.MustCompile(`^(issuers|0x([0-9a-f]{8}|[0-9a-f]{16}|[0-9a-f]{64})/(docs/0x[0-9a-f]{16}|codecs/0x[0-9a-f]{8}))/(latest|versions|0x[0-9a-f]{8})\.geul$`)
+var docPath = regexp.MustCompile(`^(issuers|0x([0-9A-F]{8}|[0-9A-F]{16}|[0-9A-F]{64})/(docs/0x[0-9A-F]{16}|codecs/0x[0-9A-F]{8}))/(latest|versions|0x[0-9A-F]{8})\.geul$`)
 
 // isDocPath reports whether path, relative to `.well-known/geul/`, addresses a
 // document. Version IDs start at 1. `<Issuer>/hashes/` is a lookup by content

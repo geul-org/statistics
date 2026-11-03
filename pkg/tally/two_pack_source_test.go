@@ -11,12 +11,12 @@ func twoPackSource() fakeSource {
 	l := func(off uint64) pack.Loc { return pack.Loc{Off: off} }
 	return fakeSource{packs: []uint32{5, 9}, steps: map[uint32][]pack.InventoryEntry{
 		5: {
-			{Path: "0x00000001/docs/0x000000000000000a/0x00000001.geul", Loc: l(1)}, {Path: "0x00000001/docs/0x000000000000000b/0x00000001.geul", Loc: l(2)}, {Path: "0x00000001/docs/0x000000000000000c/0x00000001.geul", Loc: l(3)},
-			{Path: "0x00000001/docs/0x000000000000000d/0x00000001.geul", Loc: l(4)}, {Path: "0x00000001/docs/0x000000000000000a/0x00000001.geul", Loc: l(5)},
+			{Path: "0x00000001/docs/0x000000000000000A/0x00000001.geul", Loc: l(1)}, {Path: "0x00000001/docs/0x000000000000000B/0x00000001.geul", Loc: l(2)}, {Path: "0x00000001/docs/0x000000000000000C/0x00000001.geul", Loc: l(3)},
+			{Path: "0x00000001/docs/0x000000000000000D/0x00000001.geul", Loc: l(4)}, {Path: "0x00000001/docs/0x000000000000000A/0x00000001.geul", Loc: l(5)},
 		},
 		9: {
-			{Path: "0x00000001/docs/0x000000000000000b/0x00000001.geul", Loc: l(6)}, {Path: "0x00000001/docs/0x000000000000000c/0x00000001.geul", Deleted: true}, {Path: "0x00000001/docs/0x000000000000000d/0x00000001.geul", Deleted: true},
-			{Path: "0x00000001/docs/0x000000000000000d/0x00000001.geul", Loc: l(7)}, {Path: "0x00000001/hashes/0xab.geul", Deleted: true}, {Loc: l(8), Hashed: true},
+			{Path: "0x00000001/docs/0x000000000000000B/0x00000001.geul", Loc: l(6)}, {Path: "0x00000001/docs/0x000000000000000C/0x00000001.geul", Deleted: true}, {Path: "0x00000001/docs/0x000000000000000D/0x00000001.geul", Deleted: true},
+			{Path: "0x00000001/docs/0x000000000000000D/0x00000001.geul", Loc: l(7)}, {Path: "0x00000001/hashes/0xAB.geul", Deleted: true}, {Loc: l(8), Hashed: true},
 			{Path: "keys/a.pub", Loc: l(9)},
 		},
 	}}
