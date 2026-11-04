@@ -15,7 +15,7 @@ go run ./cmd/statistics [-memory 바이트] [-threads n] 아카이브...
 
 ```bash
 statistics -memory 1800000000 -threads 19 \
-  draft/geul-org/artifacts/geul/.well-known/geul/0x00000000 \
+  draft/.well-known/geul/0x00000000 \
   <위키데이터 아카이브>/.well-known/geul/0x00000001
 ```
 
