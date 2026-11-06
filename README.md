@@ -15,7 +15,7 @@ go run ./cmd/statistics [-memory 바이트] [-threads n] 아카이브...
 
 ```bash
 statistics -memory 1800000000 -threads 19 \
-  draft/.well-known/geul/0x00000000 \
+  repos/.well-known/geul/0x00000000 \
   <위키데이터 아카이브>/.well-known/geul/0x00000001
 ```
 
@@ -56,4 +56,4 @@ gogeul의 인벤토리용 zstd 디코더는 처음 쓸 때의 `GOMAXPROCS` 수�
 
 ## 개발
 
-`draft/go.work`에 묶여 있다. 답안 규칙은 filefunc(`filefunc validate .`)와 TSMA다. 라이선스는 CC0(`LICENSE`), 제3자 구성요소는 `NOTICE`.
+`repos/go.work`에 묶여 있다. 답안 규칙은 filefunc(`filefunc validate .`)와 TSMA다. 라이선스는 CC0(`LICENSE`), 제3자 구성요소는 `NOTICE`.
