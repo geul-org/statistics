@@ -56,4 +56,4 @@ gogeul의 인벤토리용 zstd 디코더는 처음 쓸 때의 `GOMAXPROCS` 수�
 
 ## 개발
 
-`repos/go.work`에 묶여 있다. 답안 규칙은 filefunc(`filefunc validate .`)와 TSMA다. 라이선스는 CC0(`LICENSE`), 제3자 구성요소는 `NOTICE`.
+`repos/go.work`에 묶여 있다. 답안 규칙은 filefunc(`filefunc validate .`)와 TSMA다. 라이선스는 코드 MIT(`LICENSE`), GEUL이 만든 데이터·문서 CC0, 제3자 구성요소는 `NOTICE`.
